@@ -6,12 +6,29 @@
 package sistemasdistribuidos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+import thrift.aresta;
+import thrift.vertice;
 
 /**
  *
  * @author lucas
  */
 public class grafo {
-    ArrayList<String> arestas = new ArrayList();
+    Map<Integer,vertice> vertices = new HashMap<Integer,vertice>();
+    ArrayList<aresta> arestas = new ArrayList();
     
+    public String listavertice (int v1, int v2)
+    {
+        for( aresta a : this.arestas)
+        {
+            if (a.)
+        }
+    }
+    
+    
+    
+
 }
