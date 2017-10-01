@@ -20,12 +20,20 @@ public class grafo {
     Map<Integer,vertice> vertices = new HashMap<Integer,vertice>();
     ArrayList<aresta> arestas = new ArrayList();
     
-    public String listavertice (int v1, int v2)
+    public String listavertice (int nome)
     {
-        for( aresta a : this.arestas)
-        {
-            if (a.)
+        String saida = "";
+        for( aresta a : arestas)
+        { 
+            System.out.println(a.v1);
+            if (a.v1 == nome || a.v2 == nome)
+            {
+                System.out.println(a);
+                saida += "\n nome 1: "+ a.v1 +" | "+ " nome 2: "+ a.v2 +" | " + " peso: "+ a.peso +" | " + " descrição: "+ a.desc +" | " + " direcionado: "+ a.direc;
+            }
+                
         }
+        return saida;
     }
     
     

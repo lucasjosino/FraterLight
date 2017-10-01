@@ -64,8 +64,7 @@ public class metodosServidor implements grafoshandler.Iface {
 
     @Override
     public String listarestavertice(int nome) throws TException {
-        
-        
+        return g.listavertice(nome);       
     }
 
     @Override
