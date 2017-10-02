@@ -29,19 +29,19 @@ public class cliente {
         vertice v = new vertice(2,3,"primeiro grafo",0);
         vertice v2 = new vertice(3,4,"segundo",0);
         vertice v3 = new vertice(5,3,"primeiro grafo",0);
+        vertice v4 = new vertice(5,3,"primeiro grafo",0);
         aresta a = new aresta(2,3,0,"primeira aresta",true);
-        aresta a2 = new aresta(2,5,0,"primeira aresta",true);
+        aresta a2 = new aresta(3,3,0,"primeira aresta",true);
         client.addvertice(v);
         client.addvertice(v2);
-        client.addvertice(v3);
         client.addaresta(a);
         client.addaresta(a2);
-//        String resultado = client.listvertice();
-//        String resultado2 = client.listaresta();
-//        System.out.println(resultado);
-//        System.out.println(resultado2);
-        String resultadolist = client.listarestavertice(2);
-        System.out.println("o resultado é "+resultadolist);
+        client.delvertice(2);
+        String resultado1 = client.listvertice();
+        System.out.println(resultado1);
+        String resultado2 = client.listaresta();
+        System.out.println(resultado2);
+
         transport.close();
     } 
     catch (Exception x) 

@@ -25,6 +25,11 @@ public class grafo {
     {
         // bem ruim isso aqui, arrumar quando possivel
         String saida = "";
+        if (!(vertices.containsKey(nome)))
+        {
+            saida = "esse vertice não existe !";
+            return saida;
+        }
         synchronized (arestas)
         {
             for( aresta a : arestas)

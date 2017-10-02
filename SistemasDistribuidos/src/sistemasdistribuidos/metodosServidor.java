@@ -5,6 +5,7 @@
  */
 package sistemasdistribuidos;
 
+import java.util.Iterator;
 import java.util.Set;
 import org.apache.thrift.TException;
 import thrift.grafoshandler;
@@ -66,7 +67,7 @@ public class metodosServidor implements grafoshandler.Iface {
             }
         }
         else
-            System.out.println("não foi possivel adicionar !");   
+            System.out.println("não foi possivel adicionar a aresta, confira os vertices !");   
     }
 
     @Override
@@ -90,6 +91,11 @@ public class metodosServidor implements grafoshandler.Iface {
     @Override
     public String listverticevizinho(int nome) throws TException {
         String saida = "";
+        if (!(g.vertices.containsKey(nome)))
+        {
+            saida = "esse vertice não existe !";
+            return saida;
+        }
         vertice vaux = g.vertices.get(nome);
         synchronized (vaux)
         {
@@ -175,12 +181,15 @@ public class metodosServidor implements grafoshandler.Iface {
     public void delaresta(int v1, int v2) throws TException {
         if (!g.arestas.isEmpty())
         {
-           for( aresta a : g.arestas)
-            { 
-                if (a.v1 == v1 || a.v2 == v2)
+            synchronized (g.arestas)
+            {
+                for( aresta a : g.arestas)
+                { 
+                    if (a.v1 == v1 || a.v2 == v2)
                     {
                       g.arestas.remove(a);
-                    }     
+                    }    
+                }
             }
         }
         else
@@ -191,20 +200,26 @@ public class metodosServidor implements grafoshandler.Iface {
     public void delvertice(int nome) throws TException {
         if (!g.vertices.isEmpty())
         {
-            g.vertices.remove(nome);  
-            for( aresta a : g.arestas)
-            { 
-                if (a.v1 == nome)
-                {
-                  delaresta(nome,a.v2);  
-                }
-                if (a.v2 == nome)
-                {
-                  delaresta(a.v1,nome);
-                }
-
+            synchronized(g.vertices)
+            {
+               vertice v = g.vertices.get(nome);
+               g.vertices.remove(nome);     
             }
-            
+            synchronized(g.arestas)
+            {
+                for( aresta a : g.arestas)
+                { 
+                    if (a.v1 == nome)
+                    {
+                      delaresta(nome,a.v2);  
+                    }
+                    if (a.v2 == nome)
+                    {
+                      delaresta(a.v1,nome);
+                    }
+
+                }
+            }    
         }
         else
             System.out.println("não foi possivel remover !");
