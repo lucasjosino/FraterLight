@@ -18,22 +18,40 @@ import thrift.vertice;
  */
 public class grafo {
     Map<Integer,vertice> vertices = new HashMap<Integer,vertice>();
-    ArrayList<aresta> arestas = new ArrayList();
+    // vector é thread-safe porem percorrer ele é uma bosta
+    Vector<aresta> arestas = new Vector();
     
     public String listavertice (int nome)
     {
+        // bem ruim isso aqui, arrumar quando possivel
         String saida = "";
-        for( aresta a : arestas)
-        { 
-            System.out.println(a.v1);
-            if (a.v1 == nome || a.v2 == nome)
-            {
-                System.out.println(a);
-                saida += "\n nome 1: "+ a.v1 +" | "+ " nome 2: "+ a.v2 +" | " + " peso: "+ a.peso +" | " + " descrição: "+ a.desc +" | " + " direcionado: "+ a.direc;
+        synchronized (arestas)
+        {
+            for( aresta a : arestas)
+            { 
+                System.out.println(a.v1);
+                if (a.v1 == nome || a.v2 == nome)
+                {
+                    System.out.println(a);
+                    saida += "\n nome 1: "+ a.v1 +" | "+ " nome 2: "+ a.v2 +" | " + " peso: "+ a.peso +" | " + " descrição: "+ a.desc +" | " + " direcionado: "+ a.direc;
+                }
+
             }
-                
         }
         return saida;
+    }
+    
+    public int procuraresta(int v1, int v2)
+    {
+        // bem ruim isso aqui, arrumar quando possivel
+        synchronized (arestas){
+            for (aresta a : arestas)
+            {
+                if (a.v1 == v1 && a.v2 == v2)
+                    return arestas.indexOf(a);
+            }
+        }
+        return -1;
     }
     
     

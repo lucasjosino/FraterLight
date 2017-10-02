@@ -42,8 +42,7 @@ public class servidor implements Runnable{
             {
                 System.out.println("deu ruim");
                 break;
-            }
-            
+            }   
         }
     }
     public static void main(String[] args) {
